@@ -4,6 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 import fs from 'fs';
 
 test.describe('Accessibility', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let allViolations: any[] = [];
 
   test.afterAll(() => {
@@ -16,10 +17,10 @@ test.describe('Accessibility', () => {
 
   test('login page should not have any automatically detectable accessibility issues', async ({ page }) => {
     await page.goto('/login');
-    
+
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     allViolations = allViolations.concat(accessibilityScanResults.violations);
-    
+
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
@@ -28,10 +29,10 @@ test.describe('Accessibility', () => {
     await page.goto('/login');
     await page.click('text=Charlie');
     await page.waitForURL('/');
-    
+
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     allViolations = allViolations.concat(accessibilityScanResults.violations);
-    
+
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 });
