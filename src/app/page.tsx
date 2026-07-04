@@ -1,65 +1,82 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cookies } from 'next/headers';
+import { getUserById } from '@/domain/lib/users';
+import { canAccessRoute } from '@/domain/lib/roles';
+import { cn } from '@/lib/utils';
+import { fetchAllPageSlugs } from '@/adapters/contentful/queries';
 
-export default function Home() {
+export default async function Dashboard() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('session');
+  const user = sessionCookie ? getUserById(sessionCookie.value) : null;
+
+  if (!user) return null;
+
+  const canEdit = canAccessRoute(user.role, '/studio');
+
+  // Fetch real pages from Contentful instead of hardcoding
+  let slugs: string[] = [];
+  try {
+    slugs = await fetchAllPageSlugs();
+  } catch (err) {
+    console.error('Failed to fetch page list from Contentful:', err);
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main id="main-content" className="mx-auto max-w-5xl p-6 py-12">
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold tracking-tight text-white">Pages</h1>
+        <p className="mt-2 text-slate-400">
+          Manage your landing pages. Your current role is <span className="font-semibold text-purple-400">{user.role}</span>.
+        </p>
+      </div>
+
+      {slugs.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-slate-700 p-12 text-center">
+          <p className="text-lg text-slate-400">No pages found in Contentful.</p>
+          <p className="mt-2 text-sm text-slate-500">
+            Create a Page entry in your Contentful space to get started.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {slugs.map((slug) => (
+            <Card key={slug} className="border-slate-800 bg-slate-900/50">
+              <CardHeader>
+                <CardTitle className="text-xl text-white">
+                  {slug.charAt(0).toUpperCase() + slug.slice(1)}
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  Slug: /{slug}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-3">
+                <Link
+                  href={`/preview/${slug}`}
+                  className={cn(buttonVariants({ variant: 'default' }), 'w-full bg-slate-800 hover:bg-slate-700')}
+                >
+                  View Live Preview
+                </Link>
+
+                {canEdit ? (
+                  <Link
+                    href={`/studio/${slug}`}
+                    className={cn(buttonVariants({ variant: 'outline' }), 'w-full border-purple-500/50 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300')}
+                  >
+                    Open in Studio
+                  </Link>
+                ) : (
+                  <Button variant="outline" className="w-full" disabled title="You do not have permission to edit">
+                    Open in Studio (Locked)
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </main>
-    </div>
+      )}
+    </main>
   );
 }

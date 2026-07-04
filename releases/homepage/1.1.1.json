@@ -1,0 +1,73 @@
+{
+  "slug": "homepage",
+  "version": "1.1.1",
+  "page": {
+    "pageId": "homepage",
+    "slug": "homepage",
+    "title": "Homepage",
+    "sections": [
+      {
+        "id": "hero-1",
+        "type": "hero",
+        "props": {
+          "headline": "Welcome to Page Studio",
+          "subtext": "Built with Contentful and Next.js. Assignement",
+          "ctaLabel": "ABC",
+          "ctaUrl": "https://linkedin.com"
+        }
+      },
+      {
+        "id": "c70ea5d5-a3b9-4a89-a317-d58812207421",
+        "type": "testimonial",
+        "props": {
+          "quote": "This is the best product ever!",
+          "author": "Jane Doe",
+          "role": "CEO, Company Inc"
+        }
+      },
+      {
+        "id": "e608c5e9-0a79-45f8-9228-f8813317a179",
+        "type": "featureGrid",
+        "props": {
+          "heading": "Our Features",
+          "features": [
+            {
+              "title": "Feature 1",
+              "description": "Description for feature 1"
+            },
+            {
+              "title": "Feature 2",
+              "description": "Description for feature 2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "e0925eda-6ab2-483d-b546-a12440aa7251",
+        "type": "cta",
+        "props": {
+          "heading": "Ready to start?",
+          "buttonLabel": "Get Started",
+          "buttonUrl": "#"
+        }
+      },
+      {
+        "id": "4f88b1f8-3899-44b5-ac97-c4e355af765d",
+        "type": "testimonial",
+        "props": {
+          "quote": "This is the best product ever!",
+          "author": "Jane Doe 2",
+          "role": "CEO, Company Inc"
+        }
+      }
+    ]
+  },
+  "changes": [
+    {
+      "type": "props-changed",
+      "sectionId": "4f88b1f8-3899-44b5-ac97-c4e355af765d",
+      "description": "Props changed on testimonial section \"4f88b1f8-3899-44b5-ac97-c4e355af765d\""
+    }
+  ],
+  "createdAt": "2026-07-04T08:00:53.996Z"
+}

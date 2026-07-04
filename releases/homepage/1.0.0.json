@@ -1,0 +1,58 @@
+{
+  "slug": "homepage",
+  "version": "1.0.0",
+  "page": {
+    "pageId": "homepage",
+    "slug": "homepage",
+    "title": "Homepage",
+    "sections": [
+      {
+        "id": "hero-1",
+        "type": "hero",
+        "props": {
+          "headline": "Welcome to Page Studio",
+          "subtext": "Built with Contentful and Next.js",
+          "ctaLabel": "ABC",
+          "ctaUrl": "badcds"
+        }
+      },
+      {
+        "id": "e608c5e9-0a79-45f8-9228-f8813317a179",
+        "type": "featureGrid",
+        "props": {
+          "heading": "Our Features",
+          "features": [
+            {
+              "title": "Feature 1",
+              "description": "Description for feature 1"
+            },
+            {
+              "title": "Feature 2",
+              "description": "Description for feature 2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "c70ea5d5-a3b9-4a89-a317-d58812207421",
+        "type": "testimonial",
+        "props": {
+          "quote": "This is the best product ever!",
+          "author": "Jane Doe",
+          "role": "CEO, Company Inc"
+        }
+      },
+      {
+        "id": "e0925eda-6ab2-483d-b546-a12440aa7251",
+        "type": "cta",
+        "props": {
+          "heading": "Ready to start?",
+          "buttonLabel": "Get Started",
+          "buttonUrl": "#"
+        }
+      }
+    ]
+  },
+  "changes": [],
+  "createdAt": "2026-07-04T07:46:16.040Z"
+}
