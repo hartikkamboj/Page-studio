@@ -46,7 +46,7 @@ test.describe('Studio Editor', () => {
     await page.keyboard.press('Enter');
     
     // Select it (it should be selected by default when added, but let's click it to be sure)
-    await page.click('button:has-text("Call to Action")');
+    await page.locator('button:has-text("Call to Action")').last().click();
     
     // Edit heading
     const headingInput = page.locator('input[id="field-heading"]');
