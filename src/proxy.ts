@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { getUserById } from '@/domain/lib/users';
 import { canAccessRoute, isPublicRoute } from '@/domain/lib/roles';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 1. Skip static files and Next.js internals

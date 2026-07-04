@@ -17,8 +17,12 @@ test.describe('Studio Editor', () => {
     // Open "Add Section" dropdown
     await page.click('button:has-text("+ Add Section")');
     
-    // Add a Hero section
-    await page.click('text=🎯 Hero', { force: true });
+    // Wait for the dropdown menu to mount and become visible
+    await expect(page.getByRole('menuitem', { name: /Hero/ })).toBeVisible();
+    
+    // Add a Hero section using keyboard navigation (Base UI dropdowns are modal and can intercept mouse events)
+    await page.keyboard.press('ArrowDown'); // Focus first item (Hero)
+    await page.keyboard.press('Enter');     // Select it
     
     // Check if section was added to the list
     await expect(page.locator('ul[role="list"]')).toContainText('🎯 Hero');
@@ -32,7 +36,14 @@ test.describe('Studio Editor', () => {
     
     // Add a CTA section
     await page.click('button:has-text("+ Add Section")');
-    await page.click('text=🚀 Call to Action', { force: true });
+    // Wait for menu
+    await expect(page.getByRole('menuitem', { name: /Call to Action/ })).toBeVisible();
+    
+    await page.keyboard.press('ArrowDown'); // Hero
+    await page.keyboard.press('ArrowDown'); // Feature Grid
+    await page.keyboard.press('ArrowDown'); // Testimonial
+    await page.keyboard.press('ArrowDown'); // CTA
+    await page.keyboard.press('Enter');
     
     // Select it (it should be selected by default when added, but let's click it to be sure)
     await page.click('button:has-text("Call to Action")');
