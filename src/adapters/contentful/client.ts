@@ -1,7 +1,7 @@
 // Contentful SDK Client — Infrastructure adapter
 // Creates delivery (published) and preview (draft) clients.
 
-import { createClient, type ContentfulClientApi, type EntrySkeletonType } from 'contentful';
+import { createClient, type ContentfulClientApi } from 'contentful';
 
 function getEnvVar(name: string): string {
   const value = process.env[name];

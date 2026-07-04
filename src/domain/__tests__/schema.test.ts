@@ -30,19 +30,22 @@ describe('parsePageSchema', () => {
   });
 
   it('rejects missing pageId', () => {
-    const { pageId: _, ...noId } = validPage;
+    const noId = { ...validPage } as any;
+    delete noId.pageId;
     const result = parsePageSchema(noId);
     expect(result.success).toBe(false);
   });
 
   it('rejects missing slug', () => {
-    const { slug: _, ...noSlug } = validPage;
+    const noSlug = { ...validPage } as any;
+    delete noSlug.slug;
     const result = parsePageSchema(noSlug);
     expect(result.success).toBe(false);
   });
 
   it('rejects missing title', () => {
-    const { title: _, ...noTitle } = validPage;
+    const noTitle = { ...validPage } as any;
+    delete noTitle.title;
     const result = parsePageSchema(noTitle);
     expect(result.success).toBe(false);
   });

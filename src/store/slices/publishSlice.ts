@@ -2,7 +2,7 @@
 // Manages the publish workflow state (loading, success, error).
 // Isolated from page data and UI state.
 
-import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { ChangeEntry } from '@/domain/models/release';
 import type { RootState } from '@/store';
 
@@ -47,7 +47,7 @@ export const publishDraft = createAsyncThunk(
       }
 
       return await response.json();
-    } catch (err) {
+    } catch (_err) {
       return rejectWithValue('Network error during publish');
     }
   }

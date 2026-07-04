@@ -2,7 +2,7 @@
 // ALL Contentful-specific field access is isolated here.
 
 import type { Entry } from 'contentful';
-import type { Page, Section, SectionType, SECTION_TYPES } from '@/domain/models/page';
+import type { Page, Section, SectionType } from '@/domain/models/page';
 
 /**
  * Contentful content type IDs (must match your Contentful space).

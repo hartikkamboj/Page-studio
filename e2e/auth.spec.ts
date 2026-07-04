@@ -38,7 +38,7 @@ test.describe('Authentication and RBAC', () => {
 
   test('enforces RBAC via middleware', async ({ request }) => {
     // Viewer cannot POST to /api/publish
-    const viewerContext = await request.post('/api/auth/login', {
+    await request.post('/api/auth/login', {
       data: { userId: 'alice' }
     });
     
