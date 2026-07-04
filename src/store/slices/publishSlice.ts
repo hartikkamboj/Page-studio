@@ -47,7 +47,7 @@ export const publishDraft = createAsyncThunk(
       }
 
       return await response.json();
-    } catch (_err) {
+    } catch {
       return rejectWithValue('Network error during publish');
     }
   }
