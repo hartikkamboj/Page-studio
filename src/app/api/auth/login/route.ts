@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       name: 'session',
       value: userId,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: request.url.startsWith('https://') || request.headers.get('x-forwarded-proto') === 'https',
       sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7, // 1 week

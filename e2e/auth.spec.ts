@@ -38,13 +38,11 @@ test.describe('Authentication and RBAC', () => {
 
   test('enforces RBAC via middleware', async ({ request }) => {
     // Viewer cannot POST to /api/publish
-    await request.post('/api/auth/login', {
-      data: { userId: 'alice' }
-    });
-    
-    // The auth endpoint returns cookies in the response headers, which the request context keeps track of automatically.
-    
+    // Manually pass the session cookie to avoid Playwright cookie jar flakiness in CI
     const publishAttempt = await request.post('/api/publish', {
+      headers: {
+        'Cookie': 'session=alice'
+      },
       data: { slug: 'test', draft: {} }
     });
     

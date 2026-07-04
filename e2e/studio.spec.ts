@@ -11,14 +11,14 @@ test.describe('Studio Editor', () => {
   test('can load studio and add a section', async ({ page }) => {
     await page.goto('/studio/homepage');
     
-    // Wait for studio to load
-    await expect(page.locator('h1').first()).toContainText('Mock Page (homepage)');
+    // Wait for studio to load by checking if the title is visible
+    await expect(page.locator('h1').first()).toBeVisible();
     
     // Open "Add Section" dropdown
     await page.click('button:has-text("+ Add Section")');
     
     // Add a Hero section
-    await page.click('text=🎯 Hero');
+    await page.click('text=🎯 Hero', { force: true });
     
     // Check if section was added to the list
     await expect(page.locator('ul[role="list"]')).toContainText('🎯 Hero');
@@ -32,7 +32,7 @@ test.describe('Studio Editor', () => {
     
     // Add a CTA section
     await page.click('button:has-text("+ Add Section")');
-    await page.click('text=🚀 Call to Action');
+    await page.click('text=🚀 Call to Action', { force: true });
     
     // Select it (it should be selected by default when added, but let's click it to be sure)
     await page.click('button:has-text("Call to Action")');

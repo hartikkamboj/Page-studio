@@ -23,7 +23,7 @@ export default async function RootLayout({
   const user = sessionCookie ? getUserById(sessionCookie.value) : null;
 
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`${inter.className} bg-slate-950 text-slate-50 antialiased`}>
         <StoreProvider>
           {/* Skip-to-content link for accessibility */}

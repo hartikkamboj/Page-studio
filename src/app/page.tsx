@@ -55,7 +55,7 @@ export default async function Dashboard() {
               <CardContent className="flex flex-col gap-3">
                 <Link
                   href={`/preview/${slug}`}
-                  className={cn(buttonVariants({ variant: 'default' }), 'w-full bg-slate-800 hover:bg-slate-700')}
+                  className={cn(buttonVariants({ variant: 'default' }), 'w-full bg-slate-800 text-white hover:bg-slate-700')}
                 >
                   View Live Preview
                 </Link>
@@ -63,12 +63,12 @@ export default async function Dashboard() {
                 {canEdit ? (
                   <Link
                     href={`/studio/${slug}`}
-                    className={cn(buttonVariants({ variant: 'outline' }), 'w-full border-purple-500/50 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300')}
+                    className={cn(buttonVariants({ variant: 'outline' }), 'w-full bg-transparent border-purple-500/50 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300')}
                   >
                     Open in Studio
                   </Link>
                 ) : (
-                  <Button variant="outline" className="w-full" disabled title="You do not have permission to edit">
+                  <Button variant="outline" className="w-full bg-transparent" disabled title="You do not have permission to edit">
                     Open in Studio (Locked)
                   </Button>
                 )}

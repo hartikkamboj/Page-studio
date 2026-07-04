@@ -21,8 +21,7 @@ export default function LoginPage() {
         body: JSON.stringify({ userId }),
       });
       if (res.ok) {
-        router.push('/');
-        router.refresh();
+        window.location.href = '/';
       } else {
         console.error('Login failed');
         setLoadingId(null);
@@ -34,7 +33,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-950 p-6">
+    <main id="main-content" className="flex min-h-screen items-center justify-center bg-slate-950 p-6">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight text-white">
@@ -97,6 +96,6 @@ export default function LoginPage() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
