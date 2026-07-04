@@ -21,7 +21,8 @@ export default function LoginPage() {
         body: JSON.stringify({ userId }),
       });
       if (res.ok) {
-        window.location.href = '/';
+        router.push('/');
+        router.refresh();
       } else {
         console.error('Login failed');
         setLoadingId(null);
@@ -70,8 +71,8 @@ export default function LoginPage() {
                     user.role === 'publisher'
                       ? 'border-red-500/30 text-red-400'
                       : user.role === 'editor'
-                      ? 'border-blue-500/30 text-blue-400'
-                      : 'border-green-500/30 text-green-400'
+                        ? 'border-blue-500/30 text-blue-400'
+                        : 'border-green-500/30 text-green-400'
                   }
                 >
                   {user.role}
